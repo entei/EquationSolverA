@@ -1,0 +1,12 @@
+%h1 New linear equation
+
+= form_tag({controller: "equation", action: "solve_linear"}, method: :post) do
+  .params-input
+    = number_field_tag :a, nil, placeholder: 'a'
+    &sdot; x +
+    = number_field_tag :b, nil, placeholder: 'b'
+    \= 0
+  %br
+    = submit_tag "Solve", class: 'btn btn-success'
+    = link_to 'Back', root_path, class: 'btn btn-default'
+  

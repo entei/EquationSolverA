@@ -1,0 +1,31 @@
+@import 'bootstrap';
+
+body {
+  padding-top: 50px; 
+}
+
+.header {
+  margin-bottom: 30px;
+  .logo {
+    text-transform: uppercase;
+  }
+}
+
+.content {
+  // max-width: 500px;
+  // margin: 0 auto;
+  text-align: center;
+}
+
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.params-input {
+  input {
+    height: 26px;
+    width: 60px;
+  }
+}

@@ -2,7 +2,8 @@
 = @equation
 
 %h1 Answer: 
-= @answer
-
+- @answer.each do |root|
+  %p= "x = #{root}"
+  
 %br 
   = link_to "New equation", equation_home_path, class: 'btn btn-default'

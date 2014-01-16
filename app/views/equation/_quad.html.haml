@@ -2,11 +2,11 @@
 
 = form_tag({controller: "equation", action: "solve_quad"}, method: :post) do
   .params-input
-    = text_field_tag :a, nil, placeholder: 'a'
+    = number_field_tag :a, nil, placeholder: 'a'
     &sdot; x<sup>2</sup> +
-    = text_field_tag :b, nil, placeholder: 'b'
+    = number_field_tag :b, nil, placeholder: 'b'
     \x +
-    = text_field_tag :c, nil, placeholder: 'c'
+    = number_field_tag :c, nil, placeholder: 'c'
     \= 0
   %br
     = submit_tag "Solve", class: 'btn btn-success'

@@ -16,7 +16,7 @@ class EquationController < ApplicationController
     end
   end
 
-  # POST
+  # HTTP POST
   # do a post service to backend sinatra app
   # use net/http
   def solve_linear
@@ -32,14 +32,13 @@ class EquationController < ApplicationController
     end
   end
   
-  #POST
+  # HTTP POST
   def solve_quad
-    unless params[:a].blank? || params[:b].blank?
+    unless params[:a].blank? || params[:b].blank? || params[:c].blank?
       @equation = "#{params[:a]}x + #{params[:b]} = 0"
       url = 'http://0.0.0.0:4567/solve'
       data = { "type" => "quadratic", "a" => "#{params[:a]}", "b" => "#{params[:b]}", "c" => "#{params[:c]}" }.to_json
       res = EquationHelper::MyHTTP.post(url, data)
-
       @answer = json_response(res)
     else
       flash.now[:error] = "fields can't be blank!"

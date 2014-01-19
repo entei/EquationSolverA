@@ -11,7 +11,9 @@ module EquationHelper
       request = Net::HTTP::Post.new(uri.request_uri, headers)
       request.body = data
       #request["Authorization"] ='SOMEAUTH'
-      Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }  
+      Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
+      rescue Errno::ECONNREFUSED => e
+        raise e
     end
   end
 end

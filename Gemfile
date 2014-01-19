@@ -32,6 +32,17 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+end
+
+group :test do
+  gem 'cucumber-rails', require: nil
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+end
+
 gem 'haml'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 # Use ActiveModel has_secure_password

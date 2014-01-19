@@ -23,7 +23,7 @@ class EquationController < ApplicationController
     unless params[:a].blank? || params[:b].blank?
       @equation = "#{params[:a]}x + #{params[:b]} = 0"
       url = 'http://0.0.0.0:4567/solve'
-      data = { "type" => "linear", "a" => "#{params[:a]}", "b" => "#{params[:b]}" }.to_json
+      data = { "equation" => {"type" => "linear", "a" => "#{params[:a]}", "b" => "#{params[:b]}"} }.to_json
       res = EquationHelper::MyHTTP.post(url, data)
       @answer = json_response(res)
     else
@@ -37,7 +37,7 @@ class EquationController < ApplicationController
     unless params[:a].blank? || params[:b].blank? || params[:c].blank?
       @equation = "#{params[:a]}x + #{params[:b]} = 0"
       url = 'http://0.0.0.0:4567/solve'
-      data = { "type" => "quadratic", "a" => "#{params[:a]}", "b" => "#{params[:b]}", "c" => "#{params[:c]}" }.to_json
+      data = { "equation" => {"type" => "quadratic", "a" => "#{params[:a]}", "b" => "#{params[:b]}", "c" => "#{params[:c]}"} }.to_json
       res = EquationHelper::MyHTTP.post(url, data)
       @answer = json_response(res)
     else
@@ -56,7 +56,7 @@ class EquationController < ApplicationController
       raise "Web service error" if result.has_key? 'Error'
       result['Success'] #data
     else
-      res.value  # non-success response 
+      res.value  # non-success response
     end
   end
 

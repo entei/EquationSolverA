@@ -1,0 +1,27 @@
+%html
+  %head
+    %title Equation solver
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = javascript_include_tag "application", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    %div.container
+      %div.header
+        %ul.nav.nav-pills.pull-right
+          %li.active 
+            = link_to 'Home', root_path
+        %h3.logo.text-muted Equation solver
+
+
+      - flash.each do |key, value|
+        %div.alert.alert-danger
+          %button.close
+          %strong Error:
+          = value
+
+      %div.well
+        %div.content
+          = yield
+      %div.footer
+        %p
+          %small ©Pavlovsky Evgenie 2014

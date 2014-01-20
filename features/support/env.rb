@@ -5,7 +5,6 @@
 # files.
 
 require 'cucumber/rails'
-
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
 # selectors in your step definitions to use the XPath syntax.
@@ -57,11 +56,12 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Capybara.register_driver :selenium do |app|
-  Capybara::Selenium::Driver.new(app, browser: :firefox)
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
 end
-# Capybara.default_driver = :selenium
+
+Capybara.default_driver = :selenium
 # Capybara.use_default_driver
-# Capybara.javascript_driver :selenium
+ # Capybara.javascript_driver = :selenium
 
 
 

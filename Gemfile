@@ -43,6 +43,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+gem 'responders'
 gem 'haml'
 gem 'bootstrap-sass', '~> 3.0.3.0'
 # Use ActiveModel has_secure_password

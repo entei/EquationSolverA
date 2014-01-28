@@ -1,5 +1,5 @@
 Feature: Rendering form
-@javascript
+
   Scenario: Render linear equation form
     Given a user visit home page
     When he clicks linear equation button

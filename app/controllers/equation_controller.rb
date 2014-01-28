@@ -29,18 +29,13 @@ class EquationController < ApplicationController
       res = http_post(url, data)
       @answer = json_response(res)
     else
-      render '_linear', notice: "fields can't be blank!"
+      flash.now[:error] = "fields can't be blank!"
+      render '_linear'
     end
   end
   
   # HTTP POST
   def solve_quad
-    # #
-    # @json = { "equation" => {"type" => "quadratic", "a" => "#{params[:a]}", "b" => "#{params[:b]}", "c" => "#{params[:c]}"} }
-    # respond_to do |format|
-    #   format.json { render :json => @json}
-    # end
-    # #
     unless params[:a].blank? || params[:b].blank? || params[:c].blank?
       @equation = "#{params[:a]}x + #{params[:b]} = 0"
       url = 'http://0.0.0.0:4567/solve'
@@ -48,7 +43,8 @@ class EquationController < ApplicationController
       res = http_post(url, data)
       @answer = json_response(res)
     else
-      render '_quad', notice: "fields can't be blank!"
+      flash.now[:error] = "fields can't be blank!"
+      render '_quad'
     end
   end
 

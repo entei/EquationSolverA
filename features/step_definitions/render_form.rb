@@ -3,7 +3,6 @@ Given(/^a user visit home page$/) do
 end
 
 When(/^he clicks linear equation button$/) do
-  @javascript
   click_link "Linear equation"
 end
 

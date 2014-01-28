@@ -46,6 +46,7 @@ end
 gem 'responders'
 gem 'haml'
 gem 'bootstrap-sass', '~> 3.0.3.0'
+gem 'httparty'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

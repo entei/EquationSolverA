@@ -1,6 +1,5 @@
 class EquationController < ApplicationController
-  require 'net/http'
-  require "uri"
+  require 'httparty'
   require 'json'
   
   def home
@@ -20,14 +19,15 @@ class EquationController < ApplicationController
 
   # HTTP POST
   # do a post service to backend sinatra app
-  # use net/http
+  # use httparty
   def solve_linear
     unless params[:a].blank? || params[:b].blank?
       @equation = "#{params[:a]}x + #{params[:b]} = 0"
       url = 'http://0.0.0.0:4567/solve'
-      data = { "equation" => {"type" => "linear", "a" => "#{params[:a]}", "b" => "#{params[:b]}"} }.to_json
-      res = http_post(url, data)
-      @answer = json_response(res)
+      data = { equation: { type: 'linear', a: params[:a], b: params[:b] } }.to_json
+      res_body = json_response(http_post(url, data))
+      @answer = res_body["success"]
+      @error = res_body["error"]
     else
       flash.now[:error] = "fields can't be blank!"
       render '_linear'
@@ -39,9 +39,10 @@ class EquationController < ApplicationController
     unless params[:a].blank? || params[:b].blank? || params[:c].blank?
       @equation = "#{params[:a]}x + #{params[:b]} = 0"
       url = 'http://0.0.0.0:4567/solve'
-      data = { "equation" => {"type" => "quadratic", "a" => "#{params[:a]}", "b" => "#{params[:b]}", "c" => "#{params[:c]}"} }.to_json
-      res = http_post(url, data)
-      @answer = json_response(res)
+      data = { equation: { type: 'quadratic', a: params[:a], b: params[:b], c: params[:c] } }.to_json
+      res_body = json_response(http_post(url, data))
+      @answer = res_body["success"]
+      @error = res_body["error"]
     else
       flash.now[:error] = "fields can't be blank!"
       render '_quad'
@@ -52,25 +53,26 @@ class EquationController < ApplicationController
   
   # POST json method
   def http_post url, data
-    uri = URI.parse(URI::escape(url))
-    headers = {'Content-Type' =>'application/json'}
-    request = Net::HTTP::Post.new(uri.request_uri, headers)
-    request.body = data
-    #request["Authorization"] ='SOMEAUTH'
-    Net::HTTP.new(uri.host, uri.port).start {|http| http.request(request) }
+    headers = { 'Content-Type' => 'application/json' } 
+    HTTParty.post(url, :body => data, :headers => headers)
     rescue Errno::ECONNREFUSED => e
       raise e
   end
 
   def json_response(res)
-    case res
-    when Net::HTTPSuccess, Net::HTTPRedirection
+    case res.code
+    when 200...300
       # OK
-      result = JSON.parse(res.body) # response body
-      raise "Web service error" if result.has_key? 'Error'
-      result['Success'] #data
+      JSON.parse(res.body) # response body
+    when 301, 302, 303, 307
+      raise "Redirect Error"
+    when 400...500
+      # authorization error
+      # ...
+    when 500...600
+      raise "Web service error"
     else
-      res.value  # non-success response
+      raise "A transmission error"
     end
   end
 

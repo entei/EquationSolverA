@@ -1,9 +1,11 @@
 %h1 You linear equation:
 = @equation
-
-%h1 Answer: 
-- @answer.each do |root|
-  %p= "x = #{root}"
-  
+%h1.error
+  = @error
+- if @answer
+  %h1 Answer: 
+  - @answer.each do |root|
+    %p= "x = #{root}"
+    
 %br 
   = link_to "New equation", equation_home_path, class: 'btn btn-default'

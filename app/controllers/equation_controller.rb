@@ -26,8 +26,8 @@ class EquationController < ApplicationController
       url = 'http://0.0.0.0:4567/solve'
       data = { equation: { type: 'linear', a: params[:a], b: params[:b] } }.to_json
       res_body = json_response(http_post(url, data))
-      @answer = res_body["success"]
-      @error = res_body["error"]
+      @answer = res_body['success']
+      @error = res_body['error']
     else
       flash.now[:error] = "fields can't be blank!"
       render '_linear'
@@ -41,8 +41,8 @@ class EquationController < ApplicationController
       url = 'http://0.0.0.0:4567/solve'
       data = { equation: { type: 'quadratic', a: params[:a], b: params[:b], c: params[:c] } }.to_json
       res_body = json_response(http_post(url, data))
-      @answer = res_body["success"]
-      @error = res_body["error"]
+      @answer = res_body['success']
+      @error = res_body['error']
     else
       flash.now[:error] = "fields can't be blank!"
       render '_quad'
@@ -65,14 +65,14 @@ class EquationController < ApplicationController
       # OK
       JSON.parse(res.body) # response body
     when 301, 302, 303, 307
-      raise "Redirect Error"
+      raise 'Redirect Error'
     when 400...500
       # authorization error
       # ...
     when 500...600
-      raise "Web service error"
+      raise 'Web service error'
     else
-      raise "A transmission error"
+      raise 'A transmission error'
     end
   end
 

@@ -23,7 +23,8 @@ class EquationController < ApplicationController
   def solve_linear
     unless params[:a].blank? || params[:b].blank?
       @equation = "#{params[:a]}x + #{params[:b]} = 0"
-      url = 'http://equation-solver-backend.herokuapp.com/solve'
+      #url = 'http://equation-solver-backend.herokuapp.com/solve'
+      url = Sinatra::SERVER_URL # backend server url
       data = { equation: { type: 'linear', a: params[:a], b: params[:b] } }.to_json
       res_body = json_response(http_post(url, data))
       @answer = res_body['success']
@@ -38,7 +39,7 @@ class EquationController < ApplicationController
   def solve_quad
     unless params[:a].blank? || params[:b].blank? || params[:c].blank?
       @equation = "#{params[:a]}x + #{params[:b]} = 0"
-      url = 'http://0.0.0.0:4567/solve'
+      url = Sinatra::SERVER_URL # backend server url
       data = { equation: { type: 'quadratic', a: params[:a], b: params[:b], c: params[:c] } }.to_json
       res_body = json_response(http_post(url, data))
       @answer = res_body['success']

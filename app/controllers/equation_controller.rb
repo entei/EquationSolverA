@@ -69,6 +69,7 @@ class EquationController < ApplicationController
     when 400...500
       # authorization error
       # ...
+      raise 'Client error'
     when 500...600
       raise 'Web service error'
     else

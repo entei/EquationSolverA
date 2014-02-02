@@ -1,0 +1,6 @@
+production:
+    url: http://equation-solver-backend.herokuapp.com/solve
+development:
+    url: http://equation-solver-backend.herokuapp.com/solve
+test:
+    url: http://equation-solver-backend.herokuapp.com/solve
